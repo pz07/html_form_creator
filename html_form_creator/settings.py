@@ -108,7 +108,7 @@ ROOT_URLCONF = 'html_form_creator.urls'
 WSGI_APPLICATION = 'html_form_creator.wsgi.application'
 
 TEMPLATE_DIRS = (
-    os.path.join(os.path.dirname(__file__), 'templates')
+    os.path.join(os.path.dirname(__file__), '../templates')
 )
 
 INSTALLED_APPS = (
