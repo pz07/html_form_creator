@@ -1,22 +1,6 @@
-{% load url from future %}
+{% extends "layout.html" %}
 
-{% include "template_list.html" %}
-
-<h4>Forms for template {{ template.name }}:</h4>
-<table>
-    {% for form_on_the_list in forms %}
-        <tr>
-            <td>
-                <a href="{% url 'creator.views.form' template.id form_on_the_list.id %}">
-                    {{ form_on_the_list.name }} by {{ form_on_the_list.author }}
-                </a>
-            </td>
-        </tr>
-    {% empty %}
-        <tr>
-            <td>
-                No forms yet...
-            </td>
-        </tr>
-    {% endfor %}
-</table>
+{% block content %}
+    {% include "content/template_list.html" %}
+    {% include "content/template_forms.html" %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{% load url from future %}
+
+<h4>Html form templates list:</h4>
+<table>
+    {% for template_on_the_list in templates %}
+        <tr>
+            <td>
+                <a href="{% url 'creator.views.template' template_on_the_list.id %}">
+                    {{ template_on_the_list.name }} by {{ template_on_the_list.author }}
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+</table>

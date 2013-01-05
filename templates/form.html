@@ -1,5 +1,9 @@
+{% extends "layout.html" %}
+
 {% load url from future %}
 
-{% include "template_forms.html" %}
-
-<h4>Form:</h4>
+{% block content %}
+    {% include "content/template_list.html" %}
+    {% include "content/template_forms.html" %}
+    {% include "content/form.html" %}
+{% endblock %}

@@ -1,0 +1,19 @@
+body{
+    margin: 0px;
+    font-family: "DejaVu Sans";
+}
+
+h4 {
+    margin: 4px;
+}
+
+.menu{
+    background-color: #808080;
+}
+
+a, a:link, a:visited, a:hover, a:active {
+    font-weight: bold;
+    font-size: 10pt;
+    text-decoration: none;
+    color: #8a2be2;
+}

@@ -1,0 +1,58 @@
+{% load url from future %}
+
+<h4>Form:</h4>
+
+    <table>
+        <form id="meta_form" action="#">
+            <tr>
+                <td>
+                    Action:
+                </td>
+                <td>
+                    <select name="form_method" id="form_method">
+                        <option value="POST" label="POST" {% if form_view.method == 'POST'%} selected="true" {% endif %}/>
+                        <option value="GET" label="GET" {% if form_view.method == 'GET'%} selected="true" {% endif %}/>
+                    </select>
+                    <input name="form_action" id="form_action" type="input" value="{{ form_view.action }}" size="100"/>
+                </td>
+            </tr>
+        </form>
+        <form id="html_form" action="#" method="{{ form_view.method }}" target="_blank">
+            {% for field in form_view.fields %}
+                <tr>
+                    <td>
+                        {{ field.name }}
+                    </td>
+                    <td>
+                        {% if field.type == 'text' %}
+                            <input type="text" name="{{ field.name }}" value="{{ field.value }}">
+                        {% else %}
+                            TODO
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="2">
+                    <input type="button" value="Submit" onclick="submit_form();">
+                </td>
+            </tr>
+            <tr>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
+            </tr>
+        </form>
+    </table>
+
+<script>
+    function submit_form(){
+        $("#html_form").attr("action", $("#form_action").val());
+        $("#html_form").attr("method", $("#form_method").val());
+
+        $("#html_form").submit();
+    }
+</script>
