@@ -25,7 +25,7 @@
                     </td>
                     <td>
                         {% if field.type == 'text' %}
-                            <input type="text" name="{{ field.name }}" value="{{ field.value }}">
+                            <input type="text" name="{{ field.name }}" value="{{ field.value }}" size="{{ field.size }}">
                         {% else %}
                             TODO
                         {% endif %}
