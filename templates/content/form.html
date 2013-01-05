@@ -2,8 +2,8 @@
 
 <h4>Form:</h4>
 
-    <table>
-        <form id="meta_form" action="#">
+    <form id="html_form" action="#" method="{{ form_view.method }}" target="_blank">
+        <table>
             <tr>
                 <td>
                     Action:
@@ -16,8 +16,6 @@
                     <input name="form_action" id="form_action" type="input" value="{{ form_view.action }}" size="100"/>
                 </td>
             </tr>
-        </form>
-        <form id="html_form" action="#" method="{{ form_view.method }}" target="_blank">
             {% for field in form_view.fields %}
                 <tr>
                     <td>
@@ -34,7 +32,7 @@
             {% endfor %}
             <tr>
                 <td colspan="2">
-                    <input type="button" value="Submit" onclick="submit_form();">
+                    <input type="button" name="form_submit" value="Submit" onclick="submit_form();">
                 </td>
             </tr>
             <tr>
@@ -45,14 +43,30 @@
 
                 </td>
             </tr>
-        </form>
-    </table>
+        </table>
+    </form>
+
+<form id="form_to_send" action="#" target="_blank">
+
+
+</form>
 
 <script>
     function submit_form(){
-        $("#html_form").attr("action", $("#form_action").val());
-        $("#html_form").attr("method", $("#form_method").val());
+        $("#form_to_send").html("");
 
-        $("#html_form").submit();
+        $("#form_to_send").attr("action", $("#form_action").val());
+        $("#form_to_send").attr("method", $("#form_method").val());
+
+        $("#html_form :input").each(function(idx, input){
+            if(input.name == 'form_action' || input.name == 'form_method' || input.name == 'form_submit')
+                return;
+
+            if(input.value){
+                $("#form_to_send").append('<input type="hidden" name="'+input.name+'" value="'+input.value+'" />');
+            }
+        });
+
+        $("#form_to_send").submit();
     }
 </script>
