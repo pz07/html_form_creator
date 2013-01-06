@@ -6,8 +6,10 @@
         <tr>
             <td>
                 <a href="{% url 'creator.views.form' template.id form_on_the_list.id %}">
-                    {{ form_on_the_list.name }} by {{ form_on_the_list.author }}
+                    {{ form_on_the_list.name }}
                 </a>
+                <span class="author"> by {{ form_on_the_list.author }}</span>
+                <a class="small" href="{% url 'creator.views.form_edit' template.id form_on_the_list.id %}">edit</a>
             </td>
         </tr>
     {% empty %}

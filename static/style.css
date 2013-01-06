@@ -1,10 +1,14 @@
 body{
     margin: 0px;
     font-family: "DejaVu Sans";
+    font-size: 10pt;
+    color: #8a2be2;
 }
 
 h4 {
     margin: 4px;
+    font-size: 12pt;
+    color: black;
 }
 
 .menu{
@@ -16,4 +20,14 @@ a, a:link, a:visited, a:hover, a:active {
     font-size: 10pt;
     text-decoration: none;
     color: #8a2be2;
+}
+
+.author{
+    font-size: 9px;
+    color: #808080;
+}
+
+.small, a.small, a.small:link, a.small:visited, a.small:hover, a.small:active {
+    font-size: 9px;
+    color: #808080;
 }

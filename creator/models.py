@@ -51,8 +51,8 @@ class HtmlForm(models.Model):
 class HtmlFieldValue(models.Model):
     html_form = models.ForeignKey(HtmlForm)
     html_field = models.ForeignKey(HtmlField)
-    value = models.CharField(max_length=255)
+    default_value = models.CharField(max_length=255, blank=True, null=True)
 
     def __unicode__(self):
-        return "HtmlFieldValue#"+self.value
+        return "HtmlFieldValue#{0}".format(self.default_value)
 

@@ -1,0 +1,57 @@
+{% load url from future %}
+
+<h4>Edit form:</h4>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form id="html_form" action="{% url 'creator.views.form_edit' template.id form_view.id %}" method="POST">
+    <table>
+        <tr>
+            <td>
+                Method:
+            </td>
+            <td>
+                <select name="form_method" id="form_method">
+                    <option value="POST" label="POST" {% if form_view.method == 'POST'%} selected="true" {% endif %}/>
+                    <option value="GET" label="GET" {% if form_view.method == 'GET'%} selected="true" {% endif %}/>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Action:
+            </td>
+            <td>
+                <input name="form_action" id="form_action" type="input" value="{{ form_view.action }}" size="100"/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <td class="small">Field name</td>
+                        <td class="small">Field value</td>
+                    </tr>
+                    {% for field in form_view.fields %}
+                        <tr>
+                            <td>
+                                {{ field.name }}
+                            </td>
+                            <td>
+                                <input type="text" name="field_{{ field.id }}_value" value="{{ field.default_value }}" size="{{ field.size }}">
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" name="form_submit" value="Submit">
+            </td>
+        </tr>
+    </table>
+</form>
+
+<script>
+</script>
