@@ -27,6 +27,9 @@
                         {% else %}
                             TODO
                         {% endif %}
+                        {% if field.is_md5_field %}
+                            <a class="small" id="gen_sig_link_for_{{field_name}}" href="javascript:gen_sig('{{field.name}}', '{{field.value}}')">gen sig</a>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}
@@ -58,6 +61,8 @@
     {% endfor %}
 
     function submit_form(){
+        refresh_sigs();
+        
         $("#form_to_send").html("");
 
         $("#form_to_send").attr("action", $("#form_action").val());
@@ -78,4 +83,35 @@
 
         $("#form_to_send").submit();
     }
+
+    function gen_sig(field_name, field_value){
+        var message = "";
+
+        var field_name_array = field_value.substring(4).split(",");
+        for(field_idx in field_name_array){
+            var current_value = $("#html_form :input").filter(function(idx, input){
+                return input.name == field_name_array[field_idx];
+            }).val();
+
+            if(current_value)
+                message = message + current_value;
+        }
+
+        var hash = CryptoJS.MD5(message);
+        $("#html_form :input").filter(function(idx, input){
+            return input.name == field_name
+        }).val(hash);
+    }
+
+    function refresh_sigs(){
+        $("#html_form a").filter(function(idx, a){
+            return a.id && a.id.indexOf('gen_sig_link_for_') == 0;
+        }).each(function(idx, a){
+            a.click();
+        });
+    }
+
+    $(document).ready(function(){
+        refresh_sigs();
+    });
 </script>

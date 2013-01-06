@@ -67,7 +67,6 @@ class FieldView:
         return self.html_field.default_value
 
     def value(self):
-        #TODO value z sesji, value z html_field_value
         value = self.html_field.default_value
         if self.html_field_value and self.html_field_value.default_value:
             value = self.html_field_value.default_value
@@ -85,6 +84,9 @@ class FieldView:
 
     def is_supporting_field(self):
         return self.html_field.supporting_field
+
+    def is_md5_field(self):
+        return self.value().startswith("md5:")
 
 class VariableProcessor:
 
