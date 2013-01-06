@@ -18,20 +18,25 @@ class FormView:
         return self.html_form.action
 
     def fields(self):
-        #TODO lazy initialize
-        html_fields = HtmlField.objects.filter(html_form_template_id=self.html_template.id)
+        if not hasattr(self, 'form_fields'):
+            html_fields = HtmlField.objects.filter(html_form_template_id=self.html_template.id)
 
-        html_field_values = HtmlFieldValue.objects.filter(html_form=self.html_form)
-        html_field_values_dict = dict([(x.html_field_id,x) for x in html_field_values])
+            html_field_values = HtmlFieldValue.objects.filter(html_form=self.html_form)
+            html_field_values_dict = dict([(x.html_field_id,x) for x in html_field_values])
 
-        print "TUTUTUT"
-        print html_field_values_dict
+            fields = []
+            for html_field in html_fields:
+                fields.append(FieldView(html_field, html_field_values_dict.get(html_field.id)))
 
-        fields = []
-        for html_field in html_fields:
-            fields.append(FieldView(html_field, html_field_values_dict.get(html_field.id)))
+            self.form_fields = fields
 
-        return fields
+        return self.form_fields;
+
+    def supporting_fields(self):
+        def is_supporting(field_view):
+            return field_view.is_supporting_field()
+
+        return filter(is_supporting, self.fields())
 
 class FieldView:
 
@@ -77,6 +82,9 @@ class FieldView:
             return self.html_field.size
         else:
             return "50"
+
+    def is_supporting_field(self):
+        return self.html_field.supporting_field
 
 class VariableProcessor:
 

@@ -28,6 +28,7 @@ class HtmlField(models.Model):
     field_type = models.CharField(max_length=32, choices = FIELD_TYPE_CHOICES)
     default_value = models.CharField(max_length=255, blank = True)
     size = models.IntegerField(null = True, blank = True)
+    supporting_field = models.BooleanField(null = False, blank = False, default = False)
 
     def __unicode__(self):
         return "HtmlField#"+self.name

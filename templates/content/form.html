@@ -52,6 +52,11 @@
 </form>
 
 <script>
+    var supporting_fields = new Array();
+    {% for field in form_view.supporting_fields %}
+        supporting_fields.push("{{field.name}}")
+    {% endfor %}
+
     function submit_form(){
         $("#form_to_send").html("");
 
@@ -61,6 +66,10 @@
         $("#html_form :input").each(function(idx, input){
             if(input.name == 'form_action' || input.name == 'form_method' || input.name == 'form_submit')
                 return;
+
+            if(supporting_fields.indexOf(input.name) != -1){
+                return;
+            }
 
             if(input.value){
                 $("#form_to_send").append('<input type="hidden" name="'+input.name+'" value="'+input.value+'" />');
