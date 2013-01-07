@@ -57,13 +57,9 @@ def form_edit(request, template_id, form_id):
 
             new_field_value = request.POST.get("field_{0}_value".format(field.id()), None)
 
-            print new_field_value
-            print field.default_value()
-            print new_field_value != field.default_value()
-
             if new_field_value != field.default_value() and new_field_value:
                 try:
-                    field_to_update = HtmlFieldValue.objects.get(html_field_id=field.id)
+                    field_to_update = HtmlFieldValue.objects.get(html_field_id=field.id, html_form=form)
                 except ObjectDoesNotExist:
                     field_to_update = HtmlFieldValue(html_form=form, html_field=HtmlField.objects.get(pk=field.id))
 
@@ -72,7 +68,7 @@ def form_edit(request, template_id, form_id):
             elif new_field_value == field.template_value():
                 field_to_update = None
                 try:
-                    field_to_update = HtmlFieldValue.objects.get(html_field_id=field.id)
+                    field_to_update = HtmlFieldValue.objects.get(html_field_id=field.id, html_form=form)
                 except ObjectDoesNotExist:
                     pass
 
